@@ -63,9 +63,9 @@ router.put("/:code", async function(req, res, next) {
          RETURNING code, name, description`, [name, description, req.params.code]
          );
     
-    if (!(results.rows[0].hasOwnProperty("code"))) {
-        throw new ExpressError(`company cannot be found`, 404);
-    }
+     if (results.rows.length === 0) {
+       throw new ExpressError(`company cannot be found`, 404);
+     }
 
     return res.json({company: results.rows[0]});
       
